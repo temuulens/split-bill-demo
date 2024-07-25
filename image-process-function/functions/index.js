@@ -3,6 +3,8 @@ const admin = require('firebase-admin');
 const OpenAI = require('openai');
 
 admin.initializeApp();
+const cors = require('cors')({origin: true});
+
 
 const openai = new OpenAI({
   apiKey: functions.config().openai.apikey,
@@ -72,43 +74,34 @@ exports.analyzeReceipt = functions.https.onRequest(async (req, res) => {
 });
 
 
-exports.saveJsonToDatabase = functions.https.onRequest(async (request, response) => {
-  // Set CORS headers for all responses
-  res.set('Access-Control-Allow-Origin', '*');
-
-  // Handle preflight OPTIONS request
-  if (req.method === 'OPTIONS') {
-    res.set('Access-Control-Allow-Methods', 'POST');
-    res.set('Access-Control-Allow-Headers', 'Content-Type');
-    res.set('Access-Control-Max-Age', '3600');
-    res.status(204).send('');
-    return;
-  }
-
-  // Check if the request method is POST
-  if (request.method !== 'POST') {
-    return response.status(405).send('Method Not Allowed');
-  }
-
-  try {
-    // Parse the JSON body
-    const jsonData = request.body;
-
-    // Validate the JSON structure
-    if (!jsonData || !jsonData.items || !Array.isArray(jsonData.items)) {
-      return response.status(400).send('Invalid JSON structure');
+exports.saveJsonToDatabase = functions.https.onRequest((request, response) => {
+  return cors(request, response, async () => {
+    // Check if the request method is POST
+    if (request.method !== 'POST') {
+      return response.status(405).send('Method Not Allowed');
     }
 
-    // Generate a new UUID
-    const newUuid = admin.database().ref().push().key;
+    try {
+      // Parse the JSON body
+      const jsonData = request.body;
 
-    // Save the JSON data to the Realtime Database under the generated UUID
-    await admin.database().ref(`orders/${newUuid}`).set(jsonData);
+      // Validate the JSON structure
+      if (!jsonData || !jsonData.items || !Array.isArray(jsonData.items)) {
+        return response.status(400).send('Invalid JSON structure');
+      }
 
-    // Return the UUID to the caller
-    response.status(200).json({ uuid: newUuid });
-  } catch (error) {
-    console.error('Error saving data:', error);
-    response.status(500).send('Internal Server Error');
-  }
+      // Generate a new UUID
+      const newUuid = admin.database().ref().push().key;
+
+      // Save the JSON data to the Realtime Database under the generated UUID
+      await admin.database().ref(`orders/${newUuid}`).set(jsonData);
+
+      // Return the UUID to the caller
+      response.status(200).json({ uuid: newUuid });
+    } catch (error) {
+      console.error('Error saving data:', error);
+      response.status(500).send('Internal Server Error');
+    }
+  });
 });
+
