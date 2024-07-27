@@ -1,0 +1,211 @@
+/* dark-theme.css */
+body {
+  background-color: #121212;
+  color: #e0e0e0;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+input, button {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+  border: 1px solid #333;
+  padding: 0.5em;
+  margin: 0.5em 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+input::placeholder {
+  color: #888;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2em;
+}
+
+form > * {
+  width: 100%;
+  max-width: 300px;
+}
+
+input:focus, button:focus {
+  outline: none;
+  border-color: #6200ee;
+}
+
+button:hover {
+  background-color: #333;
+}
+
+button:active {
+  background-color: #555;
+}
+
+.draggable-container {
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.draggable-header {
+  color: #4fc3f7;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+}
+
+.draggable-user-card {
+  min-width: 300px;
+  margin: 10px;
+  background-color: #2a2a2a;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  flex: 1;
+}
+
+.draggable-user-header {
+  background-color: #3a3a3a;
+  color: #4fc3f7;
+  padding: 15px;
+  margin: 0;
+  border-bottom: 2px solid #4fc3f7;
+}
+
+.draggable-list {
+  padding: 15px;
+  min-height: 200px;
+  list-style: none;
+  margin: 0;
+}
+
+.draggable-item {
+  user-select: none;
+  padding: 16px;
+  margin: 0 0 10px 0;
+  min-height: 50px;
+  background-color: #3a3a3a;
+  color: #e0e0e0;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.draggable-item-dragging {
+  background-color: #4a4a4a;
+}
+
+.total-price {
+  padding: 15px;
+  background: #4fc3f7;
+  color: #1a1a1a;
+  border-radius: 5px;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.lock-switch {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.lock-switch-label {
+  color: #4fc3f7;
+  margin-right: 10px;
+}
+
+.lock-switch-container {
+  width: 50px;
+  height: 24px;
+  background-color: #ccc;
+  border-radius: 12px;
+  position: relative;
+  transition: background-color 0.3s;
+}
+
+.lock-switch-button {
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: left 0.3s;
+}
+
+.lock-switch-container.locked {
+  background-color: #4fc3f7;
+}
+
+.lock-switch-button.locked {
+  left: 28px;
+}
+
+.lock-container {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 16px 0;
+  text-align: center;
+  background-color: #2a2a2a;
+  padding: 10px 20px;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Media Queries for responsiveness */
+@media (max-width: 768px) {
+  .draggable-header {
+    font-size: 2rem;
+  }
+
+  .draggable-user-card {
+    min-width: 100%;
+    margin: 5px 0;
+  }
+
+  .draggable-item {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+
+  .total-price {
+    padding: 10px;
+    font-size: 1rem;
+  }
+
+  .lock-container {
+    width: 100%;
+    left: 0;
+    transform: none;
+    border-radius: 0;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .draggable-header {
+    font-size: 1.5rem;
+  }
+
+  .draggable-item {
+    padding: 10px;
+    font-size: 0.8rem;
+  }
+
+  .total-price {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+}
