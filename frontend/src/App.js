@@ -129,7 +129,7 @@ const App = () => {
   const getQRCodeURL = () => {
     if (!savedUUID) return '';
     // Replace this with your actual base URL for viewing receipts
-    return `https://your-receipt-viewer-url.com/receipt/${savedUUID}`;
+    return `https://split-bill-demo-82t6.vercel.app/?uuid=${savedUUID}`;
   };
 
   return (
