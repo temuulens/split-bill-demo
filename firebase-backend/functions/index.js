@@ -1,6 +1,7 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const OpenAI = require('openai');
+const { v4: uuidv4 } = require('uuid');
 
 admin.initializeApp();
 const cors = require('cors')({origin: true});
@@ -90,10 +91,16 @@ exports.saveJsonToDatabase = functions.https.onRequest((request, response) => {
         return response.status(400).send('Invalid JSON structure');
       }
 
-      // Generate a new UUID
+      // Add UUID to each item
+      jsonData.items = jsonData.items.map(item => ({
+        ...item,
+        id: admin.database().ref().push().key // Generate a new UUID for each item
+      }));
+
+      // Generate a new UUID for the entire data
       const newUuid = admin.database().ref().push().key;
 
-      // Save the JSON data to the Realtime Database under the generated UUID
+      // Save the updated JSON data to the Realtime Database under the generated UUID
       await admin.database().ref(`orders/${newUuid}`).set(jsonData);
 
       // Return the UUID to the caller
