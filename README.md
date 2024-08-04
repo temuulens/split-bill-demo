@@ -6,7 +6,7 @@ This Split Bill App is a web application designed to simplify the process of spl
 ## Technologies Used
 - Frontend: React.js, Tailwind CSS
 - Backend: Firebase (Realtime Database, Cloud Functions)
-- Image Processing: OCR (Optical Character Recognition) API
+- Image Processing: GPT4-mini model for OCR (Optical Character Recognition)
 - Hosting: Firebase Hosting (client), Vercel (frontend)
 
 ## Project Structure
