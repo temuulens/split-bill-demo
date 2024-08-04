@@ -59,9 +59,3 @@ The project is divided into three main parts:
 - Frontend: Deploy to Vercel or your preferred hosting platform.
 - Client Frontend: Deploy to Firebase Hosting using `firebase deploy`.
 - Backend: Automatically deployed when using `firebase deploy`.
-
-## Contributing
-Please read CONTRIBUTING.md for details on our code of conduct and the process for submitting pull requests.
-
-## License
-This project is licensed under the MIT License - see the LICENSE.md file for details.
